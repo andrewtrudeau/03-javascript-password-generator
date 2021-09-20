@@ -1,4 +1,3 @@
-# 03-javascript-password-generator
 # Homework 3: JS Password Generator
 
 ## Objective 
