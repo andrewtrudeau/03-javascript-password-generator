@@ -17,6 +17,7 @@ generateBtn.addEventListener("click", writePassword);
 // Student Code //
 //////////////////
 
+// Main data-structure and info regarding algorithm
 const pwdLenMin = 8;
 const pwdLenMax = 128;
 
@@ -45,6 +46,7 @@ var passwordPerms = {
     }]
 }
 
+// Gets the 'charType' (set of characters allowed) by the name of the charType
 function charTypeByName(name) {
   var charTypes = passwordPerms.charTypes;
   for (var i = 0; i < charTypes.length; i++)
@@ -52,8 +54,42 @@ function charTypeByName(name) {
       return charTypes[i];
 }
 
-// not used but a shorthand version of charTypeByName
+// Not used but a shorthand version of charTypeByName
 var charTypeByNameFancy = (name) => arr.filter((item) => { return item.name === name; });
+
+function random(min, max) {
+  return Math.floor(Math.random() * ((max) - min) + min);
+}
+
+// Another shorthand version that goes beyond the scope of the assignment
+var randomFancy = (min, max) => Math.floor(Math.random() * ((max) - min) + min);
+
+// Takes acceptable values and generates password based on those values
+function buildPassword() {
+
+  // Build acceptable values to include in password
+  var charTypes = passwordPerms.charTypes;
+  var values = ""
+
+  for (var i = 0; i < charTypes.length; i++)
+    if (charTypes[i].include)
+      values += charTypes[i].values
+
+  // Generate password based on values list
+  var password = ""
+
+  if (values.length != 0) {
+    var length = passwordPerms.length;
+    for (var i = 0; i < length; i++) {
+      password += values[random(0, values.length)]
+    }
+  } else {// No settings used (cancel selected evert prompt)
+    alert("No setting were selected so no meaningful password could be generated.");
+    password = "no settings";
+  }
+
+  return password;
+}
 
 // Prompt user for info about password
 function setPwdSettings() {
@@ -62,37 +98,17 @@ function setPwdSettings() {
 
   do { // Error checking (must be in between 8 and 128)
     value = parseInt(prompt("Insert password length (8-128):"));
-  } while (isNaN(value) || value < pwdLenMin || value > pwdLenMax)
+  } while (isNaN(value) || value < pwdLenMin || value > pwdLenMax);
 
+  passwordPerms.length = value;
+
+  // Prompt to include characters
   charTypeByName("lowerCase").include = confirm("Include lower-case values?");
   charTypeByName("upperCase").include = confirm("Include upper-case values?");
   charTypeByName("numeric").include = confirm("Include numeric values?");
   charTypeByName("specialChars").include = confirm("Include special values?");
 
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * ((max) - min) + min);
-}
-
-// Takes acceptable values and generates password based on those values
-function buildPassword() {
-
-  // Build acceptable values
-  var charTypes = passwordPerms.charTypes;
-  var values = ""
-  for (var i = 0; i < charTypes.length; i++)
-    if (charTypes[i].include)
-      values += charTypes[i].values
-      
-  // Build password based on values
-  var length = passwordPerms.length;
-  var password = ""
-  for (var i = 0; i < length; i++) {
-    password += values[random(0, values.length)]
-  }
-
-  return password;
+  alert("Password generated!")
 }
 
 function generatePassword() {
@@ -100,5 +116,5 @@ function generatePassword() {
   setPwdSettings();
 
   return buildPassword();
+  
 }
-
