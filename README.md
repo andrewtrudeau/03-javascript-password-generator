@@ -22,15 +22,15 @@ I implemented this algorithm when the button is pressed (algorithm code is comme
 
 Default Screen
 
-![Default Screen](./Assets/images/screenshots/screen1.png)
+![Default Screen](./Assets/images/screen1.png)
 
 Prompt
 
-![Prompt](./Assets/images/screenshots/screen2.png)
+![Prompt](./Assets/images/screen2.png)
 
 Generated Password
 
-![Generated Password](./Assets/images/screenshots/screen3.png)
+![Generated Password](./Assets/images/screen3.png)
 
 ## Links
 
